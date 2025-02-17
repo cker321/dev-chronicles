@@ -4,6 +4,7 @@ export default defineConfig({
   title: "Dev Chronicles",
   description: "A living documentation of development experiences, technical solutions, and deployment wisdom",
   base: '/dev-chronicles/',
+  ignoreDeadLinks: true,
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },

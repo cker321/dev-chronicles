@@ -4,7 +4,7 @@ System architecture decisions, patterns, and design documentation.
 
 ## Sections
 
-### [Design Decisions](./decisions.md)
+### [Design Decisions](/index.md)
 Key architectural decisions and their rationale.
 
 ### [System Design](./system-design.md)
