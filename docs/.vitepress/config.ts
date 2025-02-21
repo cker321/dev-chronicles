@@ -1,42 +1,46 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: "Dev Chronicles",
-  description: "A living documentation of development experiences, technical solutions, and deployment wisdom",
+  title: "开发编年史",
+  description: "记录开发经验、技术解决方案和部署的实时文档",
   base: '/dev-chronicles/',
   ignoreDeadLinks: true,
+  head: [
+    ['link', { rel: 'icon', href: '/favicon.ico' }],
+    ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
+  ],
   themeConfig: {
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Development', link: '/development/' },
-      { text: 'Deployment', link: '/deployment/' },
-      { text: 'Architecture', link: '/architecture/' },
-      { text: 'Troubleshooting', link: '/troubleshooting/' },
+      { text: '首页', link: '/' },
+      { text: '开发', link: '/development/' },
+      { text: '部署', link: '/deployment/' },
+      { text: '架构', link: '/architecture/' },
+      { text: '故障排查', link: '/troubleshooting/' },
     ],
     sidebar: {
       '/development/': [
         {
-          text: 'Development',
+          text: '开发',
           items: [
-            { text: 'Overview', link: '/development/' },
+            { text: '概述', link: '/development/' },
             {
-              text: 'Frontend',
+              text: '前端',
               collapsed: false,
               items: [
-                { text: 'Overview', link: '/development/frontend/' },
-                { text: 'Nginx Vue Router Experience', link: '/development/frontend/nginx-vue-router-experience' }
+                { text: '概述', link: '/development/frontend/' },
+                { text: 'Nginx Vue Router 经验', link: '/development/frontend/nginx-vue-router-experience' }
               ]
             },
-            { text: 'Backend', link: '/development/backend/' },
-            { text: 'Database', link: '/development/database/' }
+            { text: '后端', link: '/development/backend/' },
+            { text: '数据库', link: '/development/database/' }
           ]
         }
       ],
       '/deployment/': [
         {
-          text: 'Deployment',
+          text: '部署',
           items: [
-            { text: 'Overview', link: '/deployment/' },
+            { text: '概述', link: '/deployment/' },
             { text: 'Nginx', link: '/deployment/nginx/' },
             { text: 'Docker', link: '/deployment/docker/' },
             { text: 'Kubernetes', link: '/deployment/kubernetes/' }
@@ -45,21 +49,21 @@ export default defineConfig({
       ],
       '/architecture/': [
         {
-          text: 'Architecture',
+          text: '架构',
           items: [
-            { text: 'Overview', link: '/architecture/' },
-            { text: 'Design Decisions', link: '/architecture/decisions' },
-            { text: 'System Design', link: '/architecture/system-design' }
+            { text: '概述', link: '/architecture/' },
+            { text: '设计决策', link: '/architecture/decisions' },
+            { text: '系统设计', link: '/architecture/system-design' }
           ]
         }
       ],
       '/troubleshooting/': [
         {
-          text: 'Troubleshooting',
+          text: '故障排查',
           items: [
-            { text: 'Overview', link: '/troubleshooting/' },
-            { text: 'Common Issues', link: '/troubleshooting/common-issues' },
-            { text: 'Debug Guides', link: '/troubleshooting/debug-guides' }
+            { text: '概述', link: '/troubleshooting/' },
+            { text: '常见问题', link: '/troubleshooting/common-issues' },
+            { text: '调试指南', link: '/troubleshooting/debug-guides' }
           ]
         }
       ]
@@ -68,8 +72,8 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/cker321/dev-chronicles' }
     ],
     footer: {
-      message: 'Released under the MIT License.',
-      copyright: 'Copyright 2024-present Dev Chronicles'
+      message: '基于 MIT 许可发布',
+      copyright: 'Copyright 2024-present 开发编年史'
     }
   }
 })
