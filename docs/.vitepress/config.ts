@@ -6,8 +6,8 @@ export default defineConfig({
   base: '/dev-chronicles/',
   ignoreDeadLinks: true,
   head: [
-    ['link', { rel: 'icon', href: '/favicon.ico' }],
-    ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
+    ['link', { rel: 'icon', href: '/dev-chronicles/favicon.ico' }],
+    ['link', { rel: 'apple-touch-icon', href: '/dev-chronicles/apple-touch-icon.png', sizes: '180x180' }],
   ],
   themeConfig: {
     nav: [
