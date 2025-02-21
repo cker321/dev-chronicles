@@ -6,7 +6,7 @@ export default defineConfig({
   base: '/dev-chronicles/',
   ignoreDeadLinks: true,
   head: [
-    ['link', { rel: 'icon', type: 'image/x-icon', href: '/dev-chronicles/favicon.ico' }],
+    ['link', { rel: 'icon', type: 'image/png', href: '/dev-chronicles/favicon-32x32.png' }],
   ],
   themeConfig: {
     nav: [
