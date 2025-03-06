@@ -28,7 +28,8 @@ export default defineConfig({
               items: [
                 { text: '概述', link: '/development/frontend/' },
                 { text: 'Nginx Vue Router 经验', link: '/development/frontend/nginx-vue-router-experience' },
-                { text: 'Vue Rollup Practice 实践', link: '/development/frontend/vue-rollup-practice' }
+                { text: 'Vue Rollup Practice 实践', link: '/development/frontend/vue-rollup-practice' },
+                { text: 'ElementPlus 自定义命名空间配置最佳实践', link: '/development/frontend/element-plus-scss-name-space' },
               ]
             },
             { text: '后端', link: '/development/backend/' },
