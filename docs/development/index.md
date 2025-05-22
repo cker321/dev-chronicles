@@ -12,3 +12,6 @@ Backend development guides, patterns, and implementations.
 
 ### [Database](/development/database/)
 Database design, optimization, and management experiences.
+
+### [视频协议资源](./video-protocols.md)
+摄像头协议与视频通信技术学习资源。
