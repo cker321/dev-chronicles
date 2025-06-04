@@ -8,7 +8,46 @@
 
 ### 2.1 整体架构
 
-![系统架构图](../public/ai-architecture.png)
+**系统架构文字描述：**
+
+```
++------------------------+        +------------------------+        +------------------------+
+|                        |        |                        |        |                        |
+|  用户交互层           |        |  AI处理层              |        |  大屏平台层           |
+|                        |        |                        |        |                        |
++------------------------+        +------------------------+        +------------------------+
+         |                                 |                                 |
+         v                                 v                                 v
++------------------------+        +------------------------+        +------------------------+
+|                        |        |                        |        |                        |
+|  自然语言指令接口    |------->|  AI指令解析引擎      |------->|  组件库适配层        |
+|                        |        |                        |        |                        |
++------------------------+        +------------------------+        +------------------------+
+                                          |                                 |
+                                          v                                 v
+                                 +------------------------+        +------------------------+
+                                 |                        |        |                        |
+                                 |  大屏生成器           |------->|  组件控制器           |
+                                 |                        |        |                        |
+                                 +------------------------+        +------------------------+
+                                          |                                 |
+                                          v                                 v
+                                 +------------------------+        +------------------------+
+                                 |                        |        |                        |
+                                 |  上下文管理器          |<------>|  大屏渲染引擎          |
+                                 |                        |        |                        |
+                                 +------------------------+        +------------------------+
+```
+
+系统分为三个主要层次：
+
+1. **用户交互层**：提供自然语言指令接口，接收用户的AI指令
+
+2. **AI处理层**：包含核心的AI指令解析引擎、大屏生成器和上下文管理器
+
+3. **大屏平台层**：包含组件库适配层、组件控制器和大屏渲染引擎
+
+数据流向：用户指令通过自然语言接口输入，由AI解析引擎处理后传递给组件适配层或大屏生成器，最终通过组件控制器和渲染引擎实现大屏的生成或控制。上下文管理器负责维护对话状态和用户意图。
 
 系统将由以下核心模块组成：
 
@@ -37,49 +76,49 @@
 ```typescript
 // 改造前
 export class ComponentBase {
-  constructor(config) {
-    this.config = config;
-    // 初始化组件
-  }
-  
-  render() {
-    // 渲染组件
-  }
-  
-  update(config) {
-    // 更新组件配置
-  }
+   constructor(config) {
+      this.config = config;
+      // 初始化组件
+   }
+
+   render() {
+      // 渲染组件
+   }
+
+   update(config) {
+      // 更新组件配置
+   }
 }
 
 // 改造后
 export class ComponentBase {
-  constructor(config) {
-    this.config = config;
-    this.aiAdapter = new AIComponentAdapter(this);
-    // 初始化组件
-  }
-  
-  render() {
-    // 渲染组件
-  }
-  
-  update(config) {
-    // 更新组件配置
-  }
-  
-  // 新增AI接口
-  executeAICommand(command) {
-    return this.aiAdapter.executeCommand(command);
-  }
-  
-  getAICapabilities() {
-    return this.aiAdapter.getCapabilities();
-  }
-  
-  // 组件注册到AI系统
-  registerToAISystem() {
-    AIRegistry.register(this);
-  }
+   constructor(config) {
+      this.config = config;
+      this.aiAdapter = new AIComponentAdapter(this);
+      // 初始化组件
+   }
+
+   render() {
+      // 渲染组件
+   }
+
+   update(config) {
+      // 更新组件配置
+   }
+
+   // 新增AI接口
+   executeAICommand(command) {
+      return this.aiAdapter.executeCommand(command);
+   }
+
+   getAICapabilities() {
+      return this.aiAdapter.getCapabilities();
+   }
+
+   // 组件注册到AI系统
+   registerToAISystem() {
+      AIRegistry.register(this);
+   }
 }
 ```
 
@@ -88,41 +127,41 @@ export class ComponentBase {
 ```typescript
 // 改造前
 export class ComponentController {
-  constructor() {
-    this.components = new Map();
-  }
-  
-  addComponent(component) {
-    // 添加组件
-  }
-  
-  removeComponent(id) {
-    // 移除组件
-  }
+   constructor() {
+      this.components = new Map();
+   }
+
+   addComponent(component) {
+      // 添加组件
+   }
+
+   removeComponent(id) {
+      // 移除组件
+   }
 }
 
 // 改造后
 export class ComponentController {
-  constructor() {
-    this.components = new Map();
-    this.aiCommandProcessor = new AICommandProcessor(this);
-  }
-  
-  addComponent(component) {
-    // 添加组件
-    component.registerToAISystem();
-  }
-  
-  removeComponent(id) {
-    // 从AI系统注销
-    AIRegistry.unregister(id);
-    // 移除组件
-  }
-  
-  // 处理AI指令
-  async processAICommand(command) {
-    return await this.aiCommandProcessor.process(command);
-  }
+   constructor() {
+      this.components = new Map();
+      this.aiCommandProcessor = new AICommandProcessor(this);
+   }
+
+   addComponent(component) {
+      // 添加组件
+      component.registerToAISystem();
+   }
+
+   removeComponent(id) {
+      // 从AI系统注销
+      AIRegistry.unregister(id);
+      // 移除组件
+   }
+
+   // 处理AI指令
+   async processAICommand(command) {
+      return await this.aiCommandProcessor.process(command);
+   }
 }
 ```
 
@@ -132,25 +171,25 @@ export class ComponentController {
 
 ```typescript
 export class AICommandParser {
-  constructor(nlpService) {
-    this.nlpService = nlpService;
-  }
-  
-  async parseCommand(text) {
-    // 1. 调用NLP服务解析文本
-    const nlpResult = await this.nlpService.analyze(text);
-    
-    // 2. 提取意图和实体
-    const { intent, entities } = nlpResult;
-    
-    // 3. 构建标准化指令
-    return this.buildCommand(intent, entities);
-  }
-  
-  buildCommand(intent, entities) {
-    // 根据意图和实体构建标准化指令
-    // ...
-  }
+   constructor(nlpService) {
+      this.nlpService = nlpService;
+   }
+
+   async parseCommand(text) {
+      // 1. 调用NLP服务解析文本
+      const nlpResult = await this.nlpService.analyze(text);
+
+      // 2. 提取意图和实体
+      const { intent, entities } = nlpResult;
+
+      // 3. 构建标准化指令
+      return this.buildCommand(intent, entities);
+   }
+
+   buildCommand(intent, entities) {
+      // 根据意图和实体构建标准化指令
+      // ...
+   }
 }
 ```
 
@@ -158,28 +197,28 @@ export class AICommandParser {
 
 ```typescript
 export class DashboardGenerator {
-  constructor(templateService, componentFactory) {
-    this.templateService = templateService;
-    this.componentFactory = componentFactory;
-  }
-  
-  async generateDashboard(aiSpec) {
-    // 1. 分析AI规格
-    const { theme, layout, components, dataSource } = this.analyzeSpec(aiSpec);
-    
-    // 2. 选择或生成模板
-    const template = await this.templateService.selectTemplate(theme, layout);
-    
-    // 3. 创建组件实例
-    const componentInstances = await this.createComponents(components, dataSource);
-    
-    // 4. 应用布局
-    const dashboard = this.applyLayout(template, componentInstances);
-    
-    return dashboard;
-  }
-  
-  // 其他辅助方法...
+   constructor(templateService, componentFactory) {
+      this.templateService = templateService;
+      this.componentFactory = componentFactory;
+   }
+
+   async generateDashboard(aiSpec) {
+      // 1. 分析AI规格
+      const { theme, layout, components, dataSource } = this.analyzeSpec(aiSpec);
+
+      // 2. 选择或生成模板
+      const template = await this.templateService.selectTemplate(theme, layout);
+
+      // 3. 创建组件实例
+      const componentInstances = await this.createComponents(components, dataSource);
+
+      // 4. 应用布局
+      const dashboard = this.applyLayout(template, componentInstances);
+
+      return dashboard;
+   }
+
+   // 其他辅助方法...
 }
 ```
 
@@ -187,43 +226,43 @@ export class DashboardGenerator {
 
 ```typescript
 export class AIContextManager {
-  constructor(vectorDb) {
-    this.vectorDb = vectorDb;
-    this.currentSession = null;
-  }
-  
-  async createSession(userId) {
-    // 创建新会话
-    this.currentSession = {
-      id: generateId(),
-      userId,
-      history: [],
-      state: {},
-      createdAt: Date.now()
-    };
-    
-    return this.currentSession;
-  }
-  
-  async addInteraction(userInput, aiResponse, entities = []) {
-    // 添加交互记录
-    const interaction = {
-      userInput,
-      aiResponse,
-      entities,
-      timestamp: Date.now()
-    };
-    
-    this.currentSession.history.push(interaction);
-    
-    // 更新向量数据库
-    await this.vectorDb.addInteraction(this.currentSession.id, interaction);
-  }
-  
-  async getRelevantContext(query) {
-    // 检索相关上下文
-    return await this.vectorDb.search(query, this.currentSession.id);
-  }
+   constructor(vectorDb) {
+      this.vectorDb = vectorDb;
+      this.currentSession = null;
+   }
+
+   async createSession(userId) {
+      // 创建新会话
+      this.currentSession = {
+         id: generateId(),
+         userId,
+         history: [],
+         state: {},
+         createdAt: Date.now()
+      };
+
+      return this.currentSession;
+   }
+
+   async addInteraction(userInput, aiResponse, entities = []) {
+      // 添加交互记录
+      const interaction = {
+         userInput,
+         aiResponse,
+         entities,
+         timestamp: Date.now()
+      };
+
+      this.currentSession.history.push(interaction);
+
+      // 更新向量数据库
+      await this.vectorDb.addInteraction(this.currentSession.id, interaction);
+   }
+
+   async getRelevantContext(query) {
+      // 检索相关上下文
+      return await this.vectorDb.search(query, this.currentSession.id);
+   }
 }
 ```
 
