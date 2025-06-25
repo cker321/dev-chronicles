@@ -21,6 +21,10 @@ Detailed design and implementation of a multi-source video conferencing system b
 
 ### [生成式驾驶舱midscenejs](./ai-midscene-alternative-approach.md)
 生成式驾驶舱midscenejs
+
+### [组件指令系统开发文档](./组件指令系统开发文档.md)
+组件指令系统设计与实现，包括VideoMatrix和CMap组件的指令系统架构
+
 ## Topics
 
 - Microservices Architecture
